@@ -28,14 +28,17 @@ usage: $0 <prefix>
 USAGE
     exit 1
   fi
-
-  local PREFIX="${1:-/usr/local}"
+  if [ -z "$1" ]; then
+    local LOCAL_PREFIX="${PREFIX:-/usr/local}"
+  else
+    local LOCAL_PREFIX="$1"
+  fi
   local GW_ROOT="$(abs_dirname "$0")"
 
-  mkdir -p "${PREFIX}/bin"
-  cp -R "${GW_ROOT}/bin/gw" "${PREFIX}/bin"
+  mkdir -p "${LOCAL_PREFIX}/bin"
+  cp -R "${GW_ROOT}/bin/gw" "${LOCAL_PREFIX}/bin"
 
-  echo "Installed gdub (gw) to $PREFIX/bin/gw."
+  echo "Installed gdub (gw) to $LOCAL_PREFIX/bin/gw."
 }
 
 install "$@"
